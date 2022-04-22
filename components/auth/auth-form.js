@@ -25,19 +25,19 @@ async function createUser(email, password) {
 }
 
 function AuthForm() {
-  const { status } = useSession({
-    required: true,
-  });
-  const [isLoading, setLoading] = useState(true);
-  useEffect(() => {
-    getSession().then((session) => {
-      if (!session) {
-        setLoading(false);
-      } else {
-        window.location.href = "/";
-      }
-    });
-  }, []);
+  // const { status } = useSession({
+  //   required: true,
+  // });
+  // const [isLoading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   getSession().then((session) => {
+  //     if (!session) {
+  //       setLoading(false);
+  //     } else {
+  //       window.location.href = "/";
+  //     }
+  //   });
+  // }, []);
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -76,9 +76,9 @@ function AuthForm() {
       }
     }
   }
-  if (isLoading) {
-    return <h1 className={StartingClasses.starting}>Loading</h1>;
-  }
+  // if (isLoading) {
+  //   return <h1 className={StartingClasses.starting}>Loading</h1>;
+  // }
 
   return (
     <section className={classes.auth}>
