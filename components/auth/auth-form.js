@@ -1,8 +1,6 @@
 import { useState, useRef } from "react";
-import { signIn } from "next-auth/client";
-
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-
 import classes from "./auth-form.module.css";
 
 async function createUser(email, password) {
@@ -13,6 +11,7 @@ async function createUser(email, password) {
       "Content-Type": "application/json",
     },
   });
+
   console.log(response);
 
   const data = await response.json();
@@ -52,8 +51,6 @@ function AuthForm() {
       if (!result.error) {
         // set some auth state
         router.replace("/profile");
-      } else {
-        console.log(result);
       }
     } else {
       try {

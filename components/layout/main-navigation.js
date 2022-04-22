@@ -1,11 +1,14 @@
-import Link from 'next/link';
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 
-import classes from './main-navigation.module.css';
+import classes from "./main-navigation.module.css";
 
 function MainNavigation() {
+  const { data: session, status } = useSession();
+
   return (
     <header className={classes.header}>
-      <Link href='/'>
+      <Link href="/">
         <a>
           <div className={classes.logo}>Next Auth</div>
         </a>
@@ -13,14 +16,18 @@ function MainNavigation() {
       <nav>
         <ul>
           <li>
-            <Link href='/auth'>Login</Link>
+            <Link href="/auth">Login</Link>
           </li>
-          <li>
-            <Link href='/profile'>Profile</Link>
-          </li>
-          <li>
-            <button>Logout</button>
-          </li>
+          {status === "authenticated" && (
+            <li>
+              <Link href="/profile">Profile</Link>
+            </li>
+          )}
+          {status !== "unauthenticated" && (
+            <li>
+              <button>Logout</button>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
