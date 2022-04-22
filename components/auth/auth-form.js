@@ -1,8 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import classes from "./auth-form.module.css";
-
+import { useSession, getSession } from "next-auth/react";
+import StartingClasses from "../starting-page/starting-page.module.css";
 async function createUser(email, password) {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
@@ -24,6 +25,20 @@ async function createUser(email, password) {
 }
 
 function AuthForm() {
+  const { status } = useSession({
+    required: true,
+  });
+  const [isLoading, setLoading] = useState(true);
+  useEffect(() => {
+    getSession().then((session) => {
+      if (!session) {
+        setLoading(false);
+      } else {
+        window.location.href = "/";
+      }
+    });
+  }, []);
+
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -60,6 +75,9 @@ function AuthForm() {
         console.log(error);
       }
     }
+  }
+  if (isLoading) {
+    return <h1 className={StartingClasses.starting}>Loading</h1>;
   }
 
   return (
