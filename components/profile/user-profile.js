@@ -13,6 +13,20 @@ function UserProfile() {
     },
   });
 
+  async function changePasswordHandler(passwordData) {
+    const response = await fetch("/api/user/change-password", {
+      method: "PATCH",
+      body: JSON.stringify(passwordData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+  }
+
   if (status === "loading") {
     return <h1 className={classes.profile}>Loading</h1>;
   }
@@ -20,7 +34,7 @@ function UserProfile() {
   return (
     <section className={classes.profile}>
       <h1>Your User Profile</h1>
-      <ProfileForm />
+      <ProfileForm onChangePassword={changePasswordHandler} />
     </section>
   );
 }

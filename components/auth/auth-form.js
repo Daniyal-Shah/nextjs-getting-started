@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import classes from "./auth-form.module.css";
 import { useSession, getSession } from "next-auth/react";
-import StartingClasses from "../starting-page/starting-page.module.css";
+
 async function createUser(email, password) {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
